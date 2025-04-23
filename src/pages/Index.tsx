@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { HeroCarousel } from "@/components/hero-carousel";
@@ -10,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, ArrowRight, Book, Briefcase, Bus, FileText, Home, Shield, Rotate3D, TrendingUp, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useStatisticsStore } from "@/services/statisticsService";
+import { useEffect } from "react";
 
 // Mock data for statistics
 const statisticsData = [
@@ -122,6 +123,25 @@ const benefitsData = [
 ];
 
 export default function Index() {
+  const { stats, incrementRegistrations } = useStatisticsStore();
+
+  // Simulate periodic updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      incrementRegistrations();
+    }, 3000); // Update every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [incrementRegistrations]);
+
+  // Update statistics data to use dynamic values
+  const statisticsData = [
+    { title: "Central Departments", value: stats.centralDepartments.toString(), subtitle: "Ministries" },
+    { title: "State Departments", value: stats.stateDepartments.toString(), subtitle: "Across all states" },
+    { title: "Services", value: stats.services.toString(), subtitle: "Central & State combined" },
+    { title: "Total Registrations", value: (stats.registrations / 1000000).toFixed(1) + "M", subtitle: "Growing daily" },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
