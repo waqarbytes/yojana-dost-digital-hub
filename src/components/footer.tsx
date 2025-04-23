@@ -9,7 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface FooterLinkProps {
   href: string;

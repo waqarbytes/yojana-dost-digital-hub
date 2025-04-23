@@ -13,7 +13,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { Home, Menu, Search, X } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -28,6 +28,7 @@ export function Header() {
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b shadow-sm">
