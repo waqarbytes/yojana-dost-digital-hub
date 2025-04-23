@@ -17,7 +17,6 @@ import { toast } from "@/components/ui/sonner";
 import { Check, FileText, List, MessageSquare } from "lucide-react";
 import { useStatisticsStore } from "@/services/statisticsService";
 
-// Define form schema with zod
 const formSchema = z.object({
   age: z.string().min(1, "Age is required").refine((val) => !isNaN(parseInt(val)), {
     message: "Age must be a number",
@@ -37,7 +36,6 @@ const formSchema = z.object({
   phoneNumber: z.string().optional(),
 });
 
-// Mock data for eligible schemes
 const allSchemes = [
   {
     id: 1,
@@ -121,7 +119,6 @@ const allSchemes = [
   },
 ];
 
-// State data
 const stateOptions = [
   { value: "andhra_pradesh", label: "Andhra Pradesh" },
   { value: "assam", label: "Assam" },
@@ -140,7 +137,6 @@ const stateOptions = [
   { value: "west_bengal", label: "West Bengal" },
 ];
 
-// Caste categories
 const casteOptions = [
   { value: "general", label: "General" },
   { value: "obc", label: "OBC" },
@@ -148,7 +144,6 @@ const casteOptions = [
   { value: "st", label: "ST" },
 ];
 
-// Occupation options
 const occupationOptions = [
   { value: "farmer", label: "Farmer" },
   { value: "student", label: "Student" },
@@ -161,7 +156,6 @@ const occupationOptions = [
   { value: "other", label: "Other" },
 ];
 
-// Language options
 const languageOptions = [
   { value: "english", label: "English" },
   { value: "hindi", label: "हिन्दी (Hindi)" },
@@ -177,7 +171,6 @@ export default function Eligibility() {
   const [activeTab, setActiveTab] = useState("form");
   const { incrementServices } = useStatisticsStore();
 
-  // Initialize form with React Hook Form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -195,37 +188,30 @@ export default function Eligibility() {
     },
   });
 
-  // Handle form submission
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     
-    // Match schemes based on user inputs
     const eligibleSchemes = allSchemes.filter(scheme => {
       let isEligible = true;
       
-      // Check age eligibility
       const userAge = parseInt(values.age);
       if (userAge < scheme.minAge || userAge > scheme.maxAge) {
         isEligible = false;
       }
       
-      // Check income eligibility
       const userIncome = parseInt(values.income);
       if (userIncome > scheme.maxIncome) {
         isEligible = false;
       }
       
-      // Check caste eligibility
       if (!scheme.caste.includes(values.caste)) {
         isEligible = false;
       }
       
-      // Check occupation eligibility
       if (scheme.occupation[0] !== "all" && !scheme.occupation.includes(values.occupation)) {
         isEligible = false;
       }
       
-      // Check area eligibility
       if (!scheme.area.includes(values.area)) {
         isEligible = false;
       }
@@ -236,14 +222,11 @@ export default function Eligibility() {
     setSchemes(eligibleSchemes);
     setActiveTab("results");
     
-    // Track service usage
     incrementServices();
     
-    // Show toast notification
     toast.success(`Found ${eligibleSchemes.length} matching schemes for you!`);
   }
 
-  // Function to handle WhatsApp inquiry
   const handleWhatsAppInquiry = () => {
     const phoneNumber = form.getValues("phoneNumber");
     
@@ -252,7 +235,6 @@ export default function Eligibility() {
       return;
     }
     
-    // In a real app, this would connect to a WhatsApp Business API
     toast.success(`WhatsApp service requested for number: ${phoneNumber}`);
   };
 
@@ -553,7 +535,8 @@ export default function Eligibility() {
                                 </a>
                               </Button>
                             </div>
-                          </CardContent>
+                          </div>
+                        </CardContent>
                       </Card>
                     ))}
                   </div>
