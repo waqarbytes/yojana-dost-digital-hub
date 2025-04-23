@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -15,7 +14,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { toast } from "@/components/ui/sonner";
-import { Check, FileText, List, MessageSquare, WhatsApp } from "lucide-react";
+import { Check, FileText, List, MessageSquare } from "lucide-react";
 import { useStatisticsStore } from "@/services/statisticsService";
 
 // Define form schema with zod
@@ -554,8 +553,7 @@ export default function Eligibility() {
                                 </a>
                               </Button>
                             </div>
-                          </div>
-                        </CardContent>
+                          </CardContent>
                       </Card>
                     ))}
                   </div>
@@ -566,7 +564,7 @@ export default function Eligibility() {
                         Want to receive updates about new schemes and deadlines?
                       </p>
                       <Button variant="outline" className="mt-2" onClick={() => setActiveTab("whatsapp")}>
-                        <WhatsApp className="mr-2 h-4 w-4" /> Get Updates on WhatsApp
+                        <MessageSquare className="mr-2 h-4 w-4" /> Get Updates on WhatsApp
                       </Button>
                     </div>
                     
@@ -602,7 +600,7 @@ export default function Eligibility() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <WhatsApp className="mr-2 h-6 w-6 text-green-500" />
+                    <MessageSquare className="mr-2 h-6 w-6 text-green-500" />
                     WhatsApp Assistance
                   </CardTitle>
                   <CardDescription>
@@ -656,7 +654,7 @@ export default function Eligibility() {
                     </div>
                     
                     <Button onClick={handleWhatsAppInquiry} className="w-full bg-green-600 hover:bg-green-700">
-                      <WhatsApp className="mr-2 h-4 w-4" />
+                      <MessageSquare className="mr-2 h-4 w-4" />
                       Connect via WhatsApp
                     </Button>
                     
