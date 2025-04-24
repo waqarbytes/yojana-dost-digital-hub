@@ -20,29 +20,30 @@ export const VoiceAssistant = () => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>Voice Assistant</CardTitle>
-        <CardDescription>
-          Enter your ElevenLabs API key to enable voice assistance
+    <Card className="w-[300px] shadow-lg">
+      <CardHeader className="space-y-1 pb-2">
+        <CardTitle className="text-lg">Voice Assistant</CardTitle>
+        <CardDescription className="text-sm">
+          Enter your ElevenLabs API key
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-2">
         <Input
           type="password"
-          placeholder="Enter your ElevenLabs API key"
+          placeholder="Enter API key"
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
+          className="text-sm"
         />
-        <div className="flex space-x-2">
-          <Button
-            variant="outline"
-            onClick={() => handleSpeak("Welcome to Yojana Dost. I'm here to help you navigate through government schemes and services. What would you like to know about?")}
-          >
-            {isPlaying ? <VolumeX className="mr-2" /> : <Volume className="mr-2" />}
-            {isPlaying ? 'Stop Speaking' : 'Start Speaking'}
-          </Button>
-        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full"
+          onClick={() => handleSpeak("Welcome to Yojana Dost. I'm here to help you navigate through government schemes and services. What would you like to know about?")}
+        >
+          {isPlaying ? <VolumeX className="mr-2 h-4 w-4" /> : <Volume className="mr-2 h-4 w-4" />}
+          {isPlaying ? 'Stop Speaking' : 'Start Speaking'}
+        </Button>
       </CardContent>
     </Card>
   );

@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, ArrowRight, Book, Briefcase, Bus, FileText, Home, Shield, Rotate3D, TrendingUp, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useStatisticsStore } from "@/services/statisticsService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { VoiceAssistant } from "@/components/VoiceAssistant";
 
 // Mock data for statistics
@@ -125,6 +125,7 @@ const benefitsData = [
 
 export default function Index() {
   const { stats, incrementRegistrations } = useStatisticsStore();
+  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
 
   // Simulate periodic updates
   useEffect(() => {
@@ -147,10 +148,25 @@ export default function Index() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="py-6 px-4">
-          <VoiceAssistant />
-        </section>
+        <HeroCarousel />
         
+        {/* Floating Voice Assistant Button */}
+        <div className="fixed right-4 bottom-20 z-50">
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-12 w-12 rounded-full bg-white shadow-lg"
+            onClick={() => setShowVoiceAssistant(!showVoiceAssistant)}
+          >
+            <Volume className="h-6 w-6" />
+          </Button>
+          {showVoiceAssistant && (
+            <div className="absolute bottom-16 right-0 mb-2">
+              <VoiceAssistant />
+            </div>
+          )}
+        </div>
+
         {/* Statistics Section */}
         <section className="py-10 px-4">
           <div className="container">
