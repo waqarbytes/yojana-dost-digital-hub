@@ -52,14 +52,6 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-        yojana: {
-          blue: '#0066CC',
-          navy: '#003366',
-          orange: '#FF9933',
-          green: '#138808',
-          light: '#F5F5F5',
-          gray: '#666666'
-        },
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

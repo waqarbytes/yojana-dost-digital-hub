@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
@@ -40,34 +39,16 @@ const FormField = <
   )
 }
 
-// Define a default type for field state that includes error
-type FieldState = {
-  isDirty: boolean
-  isTouched: boolean
-  invalid: boolean
-  error?: { type: string; message: string }
-}
-
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
-  const formContext = useFormContext()
+  const { getFieldState, formState } = useFormContext()
+
+  const fieldState = getFieldState(fieldContext.name, formState)
 
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")
   }
-
-  // Create a default field state with all required properties
-  const defaultFieldState: FieldState = {
-    isDirty: false,
-    isTouched: false,
-    invalid: false,
-  }
-
-  // Only attempt to get field state if form context exists
-  const fieldState = formContext
-    ? formContext.getFieldState?.(fieldContext.name, formContext.formState) || defaultFieldState
-    : defaultFieldState
 
   const { id } = itemContext
 
