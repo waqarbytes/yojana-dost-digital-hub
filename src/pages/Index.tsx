@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { HeroCarousel } from "@/components/hero-carousel";
@@ -12,7 +11,7 @@ import { Activity, ArrowRight, Book, Briefcase, Bus, FileText, Home, Shield, Rot
 import { Link } from "react-router-dom";
 import { useStatisticsStore } from "@/services/statisticsService";
 import { useEffect, useState } from "react";
-import { VoiceAssistant } from "@/components/VoiceAssistant";
+import { useTextToSpeech } from "@/hooks/useTextToSpeech";
 
 // Mock data for statistics
 const statisticsData = [
@@ -127,6 +126,7 @@ const benefitsData = [
 export default function Index() {
   const { stats, incrementRegistrations } = useStatisticsStore();
   const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
+  const { speak } = useTextToSpeech();
 
   // Simulate periodic updates
   useEffect(() => {
@@ -157,15 +157,12 @@ export default function Index() {
             variant="outline"
             size="icon"
             className="h-12 w-12 rounded-full bg-white shadow-lg"
-            onClick={() => setShowVoiceAssistant(!showVoiceAssistant)}
+            onClick={() => {
+              speak("Welcome to Yojana Dost. How can I help you today?");
+            }}
           >
             <Volume className="h-6 w-6" />
           </Button>
-          {showVoiceAssistant && (
-            <div className="absolute bottom-16 right-0 mb-2">
-              <VoiceAssistant />
-            </div>
-          )}
         </div>
 
         {/* Statistics Section */}
