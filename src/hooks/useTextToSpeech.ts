@@ -8,11 +8,14 @@ export interface TextToSpeechOptions {
   shouldCache?: boolean;
 }
 
+// Using a default API key - you should replace this with your own
+const DEFAULT_API_KEY = "your-eleven-labs-api-key-here";
+
 export const useTextToSpeech = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
-  const speak = useCallback(async (text: string, apiKey: string, options: TextToSpeechOptions = {}) => {
+  const speak = useCallback(async (text: string, options: TextToSpeechOptions = {}) => {
     try {
       const {
         voiceId = "21m00Tcm4TlvDq8ikWAM", // Default voice: Rachel
@@ -25,7 +28,7 @@ export const useTextToSpeech = () => {
         headers: {
           'Accept': 'audio/mpeg',
           'Content-Type': 'application/json',
-          'xi-api-key': apiKey
+          'xi-api-key': DEFAULT_API_KEY
         },
         body: JSON.stringify({
           text,
