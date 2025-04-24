@@ -11,6 +11,7 @@ import { Activity, ArrowRight, Book, Briefcase, Bus, FileText, Home, Shield, Rot
 import { Link } from "react-router-dom";
 import { useStatisticsStore } from "@/services/statisticsService";
 import { useEffect } from "react";
+import { VoiceAssistant } from "@/components/VoiceAssistant";
 
 // Mock data for statistics
 const statisticsData = [
@@ -146,7 +147,9 @@ export default function Index() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <HeroCarousel />
+        <section className="py-6 px-4">
+          <VoiceAssistant />
+        </section>
         
         {/* Statistics Section */}
         <section className="py-10 px-4">
