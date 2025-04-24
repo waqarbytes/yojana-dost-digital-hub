@@ -1,19 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { Home, Menu, Search, Volume, VolumeX, X } from "lucide-react";
+import { Home, Menu, Search, Volume, VolumeX, X, User } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTextToSpeech } from "@/hooks/useTextToSpeech";
+import { AuthModal } from "./AuthModal";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -30,7 +25,8 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const { speak, stop, isPlaying } = useTextToSpeech();
-  
+  const { user, signOut } = useAuth();
+
   const handleSpeak = async () => {
     if (isPlaying) {
       stop();
@@ -123,12 +119,18 @@ export function Header() {
           )}
 
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              हिंदी
-            </Button>
-            <Button variant="default" size="sm">
-              English
-            </Button>
+            {user ? (
+              <>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+                <Button variant="outline" onClick={() => signOut()}>
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <AuthModal />
+            )}
           </div>
         </div>
       </div>
