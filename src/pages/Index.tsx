@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { HeroCarousel } from "@/components/hero-carousel";
@@ -7,7 +8,7 @@ import { ServiceCard } from "@/components/ui/service-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Activity, ArrowRight, Book, Briefcase, Bus, FileText, Home, Shield, Rotate3D, TrendingUp, Users } from "lucide-react";
+import { Activity, ArrowRight, Book, Briefcase, Bus, FileText, Home, Shield, Rotate3D, TrendingUp, Users, Volume, VolumeX } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useStatisticsStore } from "@/services/statisticsService";
 import { useEffect, useState } from "react";
