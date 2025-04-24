@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,9 +10,10 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { Home, Menu, Search, X } from "lucide-react";
+import { Home, Menu, Search, Volume, VolumeX, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTextToSpeech } from "@/hooks/useTextToSpeech";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -29,6 +29,15 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+  const { speak, stop, isPlaying } = useTextToSpeech();
+  
+  const handleSpeak = async () => {
+    if (isPlaying) {
+      stop();
+    } else {
+      await speak("Welcome to Yojana Dost. I'm here to help you navigate through government schemes and services. What would you like to know about?");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b shadow-sm">
@@ -76,6 +85,16 @@ export function Header() {
         </NavigationMenu>
 
         <div className="ml-auto flex items-center space-x-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleSpeak}
+            className="mr-2"
+          >
+            {isPlaying ? <VolumeX className="h-5 w-5" /> : <Volume className="h-5 w-5" />}
+            <span className="sr-only">Voice Assistant</span>
+          </Button>
+
           {!searchOpen ? (
             <Button
               variant="ghost"
@@ -114,7 +133,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t">
           <nav className="grid gap-2 p-4">
